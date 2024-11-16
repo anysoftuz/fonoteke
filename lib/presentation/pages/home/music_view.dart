@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart';
-part 'package:fonoteke/presentation/pages/home/music_view_mixin.dart';
+part 'package:fonoteke/presentation/pages/home/mixin/music_view_mixin.dart';
 
 class MusicView extends StatefulWidget {
   const MusicView({super.key});
@@ -75,7 +75,8 @@ class _MusicViewState extends State<MusicView> with MusicViewMixin {
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Center(
-                            child: Image.network(metadata.artUri.toString())),
+                          child: Image.network(metadata.artUri.toString()),
+                        ),
                       ),
                     ),
                     Row(

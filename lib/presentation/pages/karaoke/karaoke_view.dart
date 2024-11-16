@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
 import 'package:fonoteke/presentation/pages/home/home_view.dart';
 import 'package:fonoteke/presentation/routes/app_routes_name.dart';
+import 'package:fonoteke/presentation/widgets/music_bottom_sheet.dart';
 import 'package:go_router/go_router.dart';
 
 class KaraokeView extends StatefulWidget {
@@ -50,7 +52,10 @@ class _KaraokeViewState extends State<KaraokeView> {
                       height: 160,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: blue,
+                        image: const DecorationImage(
+                          image: AssetImage(AppImages.throne),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     const Spacer(),
@@ -121,7 +126,11 @@ class _KaraokeViewState extends State<KaraokeView> {
                     width: 56,
                     decoration: BoxDecoration(
                       color: white,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
+                      image: const DecorationImage(
+                        image: AssetImage(AppImages.image_9),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
@@ -130,7 +139,9 @@ class _KaraokeViewState extends State<KaraokeView> {
               title: const Text("Mistake"),
               subtitle: const Text("Rauf & Faik"),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showMusicOptions(context);
+                },
                 icon: AppIcons.dots.svg(),
               ),
             ),

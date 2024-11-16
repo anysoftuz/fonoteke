@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
 import 'package:fonoteke/presentation/common/widgets/w_button.dart';
 import 'package:fonoteke/presentation/routes/app_routes_name.dart';
@@ -78,7 +79,19 @@ class _ProfileViewState extends State<ProfileView> {
           children: [
             Row(
               children: [
-                const CircleAvatar(radius: 40),
+                Container(
+                  height: 82,
+                  width: 82,
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: wgradient,
+                  ),
+                  child: Image.asset(
+                    AppImages.avat,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),

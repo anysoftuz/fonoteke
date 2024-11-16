@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
-import 'package:fonoteke/presentation/common/widgets/w_button.dart';
 import 'package:fonoteke/presentation/common/widgets/w_scale_animation.dart';
 
 class RadioView extends StatefulWidget {
@@ -18,68 +18,61 @@ class _RadioViewState extends State<RadioView> {
       appBar: AppBar(title: const Text("Радио")),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverPadding(
-            padding: const EdgeInsets.all(16),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Container(
-                    width: 240,
-                    height: 240,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: blue,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Каждый день новый",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: white,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    children: [
-                      WButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        onTap: () {},
-                        textColor: white,
-                        color: darkContainer,
-                        child: Row(
-                          children: [
-                            const Text("Добавить"),
-                            const SizedBox(width: 16),
-                            AppIcons.favorite.svg(),
-                          ],
-                        ),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(AppImages.radio),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    WScaleAnimation(
+                      onTap: () {},
+                      child: SizedBox(
+                        height: 32,
+                        child: AppIcons.equalizer.svg(),
                       ),
-                      const Spacer(),
-                      WScaleAnimation(
-                        onTap: () {},
-                        child: SizedBox(
-                          child: CircleAvatar(
-                            radius: 26,
-                            backgroundColor: darkContainer,
-                            child: AppIcons.download.svg(),
+                    ),
+                    WScaleAnimation(
+                      onTap: () {},
+                      child: SizedBox(
+                        height: 80,
+                        child: AppIcons.pausa.svg(),
+                      ),
+                    ),
+                    WScaleAnimation(
+                      onTap: () {},
+                      child: SizedBox(
+                        height: 32,
+                        child: AppIcons.share.svg(),
+                      ),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: "Программы эфира ",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "Прослушанные песни",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFFB5B5B5),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      WScaleAnimation(
-                        onTap: () {},
-                        child: SizedBox(
-                          height: 48,
-                          width: 48,
-                          child: AppIcons.play.svg(),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -91,7 +84,11 @@ class _RadioViewState extends State<RadioView> {
               width: 56,
               decoration: BoxDecoration(
                 color: white,
-                borderRadius: BorderRadius.circular(8),
+                image: const DecorationImage(
+                  image: AssetImage(AppImages.image_9),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
             textColor: white,

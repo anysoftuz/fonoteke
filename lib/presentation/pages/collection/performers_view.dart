@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
 import 'package:fonoteke/presentation/routes/app_routes_name.dart';
 import 'package:go_router/go_router.dart';
@@ -59,7 +60,10 @@ class _PerformersViewState extends State<PerformersView> {
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) => ListTile(
               contentPadding: const EdgeInsets.only(left: 16, right: 0),
-              leading: const CircleAvatar(radius: 32),
+              leading: const CircleAvatar(
+                radius: 32,
+                backgroundImage: AssetImage(AppImages.image_9),
+              ),
               title: const Text(
                 "Jay-Z",
                 style: TextStyle(
@@ -114,7 +118,10 @@ class _PerformersViewState extends State<PerformersView> {
             separatorBuilder: (context, index) => const SizedBox(height: 16),
             itemBuilder: (context, index) => ListTile(
               contentPadding: const EdgeInsets.only(left: 16, right: 0),
-              leading: const CircleAvatar(radius: 32),
+              leading: const CircleAvatar(
+                radius: 32,
+                backgroundImage: AssetImage(AppImages.image_9),
+              ),
               title: const Text(
                 "Onative",
                 style: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
 import 'package:fonoteke/presentation/common/widgets/w_button.dart';
 import 'package:fonoteke/presentation/common/widgets/w_scale_animation.dart';
@@ -28,7 +29,10 @@ class _PlaylistOfTheDayViewState extends State<PlaylistOfTheDayView> {
                     height: 240,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: blue,
+                      image: const DecorationImage(
+                        image: AssetImage(AppImages.playlist),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -90,7 +94,10 @@ class _PlaylistOfTheDayViewState extends State<PlaylistOfTheDayView> {
               height: 56,
               width: 56,
               decoration: BoxDecoration(
-                color: white,
+                image: const DecorationImage(
+                  image: AssetImage(AppImages.image_9),
+                  fit: BoxFit.cover,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),

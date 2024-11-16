@@ -1,9 +1,14 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
 import 'package:fonoteke/presentation/common/widgets/w_scale_animation.dart';
 import 'package:fonoteke/presentation/routes/app_routes_name.dart';
+import 'package:fonoteke/presentation/widgets/music_bottom_sheet.dart';
 import 'package:go_router/go_router.dart';
+import 'package:just_audio/just_audio.dart';
+part 'package:fonoteke/presentation/pages/home/mixin/home_view_mixin.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -12,7 +17,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with HomeViewMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +30,9 @@ class _HomeViewState extends State<HomeView> {
             onPressed: () {
               context.push(AppRoutePath.profile);
             },
-            icon: const CircleAvatar(),
+            icon: const CircleAvatar(
+              backgroundImage: AssetImage(AppImages.avat),
+            ),
           ),
         ),
         title: AppIcons.logo.svg(),
@@ -67,11 +74,15 @@ class _HomeViewState extends State<HomeView> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     color: blue,
+                    image: DecorationImage(
+                      image: AssetImage(whatToListenTo[index]),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
               separatorBuilder: (context, index) => const SizedBox(width: 16),
-              itemCount: 12,
+              itemCount: whatToListenTo.length,
             ),
           ),
           MoreTitle(
@@ -81,43 +92,123 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           SizedBox(
+            height: 420,
             width: double.infinity,
-            height: 220,
-            child: ListView.separated(
+            child: GridView.builder(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => SizedBox(
-                width: MediaQuery.sizeOf(context).width - 48,
-                child: Column(
-                  children: List.generate(
-                    3,
-                    (index) => ListTile(
-                      contentPadding: const EdgeInsets.only(left: 16, right: 0),
-                      onTap: () {
-                        context.push(AppRoutePath.music);
-                      },
-                      leading: Container(
-                        height: 56,
-                        width: 56,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(8),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                mainAxisExtent: 144,
+              ),
+              itemCount: playlist.children.length,
+              itemBuilder: (context, index) => WScaleAnimation(
+                onTap: () {
+                  context.push(AppRoutePath.music);
+                },
+                child: SizedBox(
+                  width: 144,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: red,
+                            image: const DecorationImage(
+                              image: AssetImage(AppImages.throne),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(4),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: WScaleAnimation(
+                                  onTap: () {
+                                    showMusicOptions(context);
+                                  },
+                                  child: AppIcons.dots.svg(),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      textColor: white,
-                      title: const Text("Mistake"),
-                      subtitle: const Text("Rauf & Faik"),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: AppIcons.dots.svg(),
+                      const SizedBox(height: 8),
+                      const Text(
+                        "Mistake",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        "Rauf & Faik",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              separatorBuilder: (context, index) => const SizedBox(width: 16),
-              itemCount: 12,
             ),
           ),
+          // SizedBox(
+          //   width: double.infinity,
+          //   height: 220,
+          //   child: ListView.separated(
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, index) => SizedBox(
+          //       width: MediaQuery.sizeOf(context).width - 48,
+          //       child: Column(
+          //         children: List.generate(
+          //           3,
+          //           (index) => ListTile(
+          //             contentPadding: const EdgeInsets.only(left: 16, right: 0),
+          //             onTap: () {
+          //               context.push(AppRoutePath.music);
+          //             },
+          //             leading: Container(
+          //               height: 56,
+          //               width: 56,
+          //               decoration: BoxDecoration(
+          //                 color: white,
+          //                 borderRadius: BorderRadius.circular(8),
+          //               ),
+          //             ),
+          //             textColor: white,
+          //             title: const Text("Mistake"),
+          //             subtitle: const Text("Rauf & Faik"),
+          //             trailing: IconButton(
+          //               onPressed: () {},
+          //               icon: AppIcons.dots.svg(),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     separatorBuilder: (context, index) => const SizedBox(width: 16),
+          //     itemCount: 12,
+          //   ),
+          // ),
+
           MoreTitle(
             title: 'Плейлист по жанру',
             onPressed: () {
@@ -136,10 +227,14 @@ class _HomeViewState extends State<HomeView> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: blue,
+                  image: DecorationImage(
+                    image: AssetImage(playlistByGenre[index]),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               separatorBuilder: (context, index) => const SizedBox(width: 16),
-              itemCount: 12,
+              itemCount: playlistByGenre.length,
             ),
           ),
           const Padding(
@@ -167,7 +262,9 @@ class _HomeViewState extends State<HomeView> {
                       height: 144,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: blue,
+                        image: DecorationImage(
+                          image: AssetImage(artist[index]),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -185,7 +282,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               separatorBuilder: (context, index) => const SizedBox(width: 16),
-              itemCount: 12,
+              itemCount: artist.length,
             ),
           ),
           MoreTitle(
@@ -226,7 +323,10 @@ class _HomeViewState extends State<HomeView> {
                     height: 56,
                     width: 56,
                     decoration: BoxDecoration(
-                      color: white,
+                      image: const DecorationImage(
+                        image: AssetImage(AppImages.image_9),
+                        fit: BoxFit.cover,
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -262,7 +362,10 @@ class _HomeViewState extends State<HomeView> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: blue,
+                          image: const DecorationImage(
+                            image: AssetImage(AppImages.throne),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -331,7 +434,10 @@ class _HomeViewState extends State<HomeView> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: blue,
+                          image: const DecorationImage(
+                            image: AssetImage(AppImages.throne),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

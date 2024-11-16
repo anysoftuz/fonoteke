@@ -4,6 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AppIcons {
   static const logo = 'assets/icons/logo.svg';
+  static const playlistPlus = 'assets/icons/playlist_plus.svg';
+  static const playlistSort = 'assets/icons/playlist_sort.svg';
+  static const playlistText = 'assets/icons/playlist_text.svg';
+  static const micRec = 'assets/icons/mic_rec.svg';
+  static const disc = 'assets/icons/disc.svg';
   static const equalizer = 'assets/icons/equalizer.svg';
   static const microphoneActive = 'assets/icons/microphone_active.svg';
   static const microphone = 'assets/icons/microphone.svg';

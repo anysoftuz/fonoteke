@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fonoteke/assets/assets/icons.dart';
+import 'package:fonoteke/assets/assets/images.dart';
 import 'package:fonoteke/assets/colors/colors.dart';
 import 'package:fonoteke/presentation/routes/app_routes_name.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,9 @@ class _CollectionViewState extends State<CollectionView> {
           onPressed: () {
             context.push(AppRoutePath.profile);
           },
-          icon: const CircleAvatar(),
+          icon: const CircleAvatar(
+            backgroundImage: AssetImage(AppImages.avat),
+          ),
         ),
         title: const Text("Коллекция"),
         actions: [
@@ -132,7 +135,10 @@ class _CollectionViewState extends State<CollectionView> {
                   height: 56,
                   width: 56,
                   decoration: BoxDecoration(
-                    color: white,
+                    image: const DecorationImage(
+                      image: AssetImage(AppImages.image_9),
+                      fit: BoxFit.cover,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
